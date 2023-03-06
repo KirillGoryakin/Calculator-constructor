@@ -1,0 +1,64 @@
+@import '/src/styles/variables.scss';
+
+.switch {
+  $self: &;
+  
+  &__wrap {
+    display: flex;
+    width: max-content;
+    padding: 1px;
+
+    background: #F3F4F6;
+    border-radius: 6px;
+
+    #{$self}__item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px 12px;
+
+      border: 1px solid transparent;
+      background: transparent;
+      border-radius: 5px;
+      cursor: pointer;
+
+      transition:
+        border 0.2s ease-in-out,
+        background 0.2s ease-in-out;
+    }
+
+    #{$self}__item-text {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 15px;
+      color: #4D5562;
+    }
+
+    #{$self}__icon-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 20px;
+      height: 20px;
+      
+      & > * {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    #{$self}__item_active {
+      border-color: #E2E3E5;
+      background: #FFFFFF;
+
+      #{$self}__icon-wrap > svg > path {
+        stroke: $iris;
+      }
+    }
+  }
+}
+
+.main-wrap__switch .switch__wrap {
+  margin-left: auto;
+}

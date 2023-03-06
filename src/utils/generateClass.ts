@@ -5,7 +5,7 @@ export const generateClass: GenerateClass = (...classes) => {
   let className = '';
 
   classes.forEach(cl => {
-    const clName = cl.trim();
+    const clName = cl.replace(/\s+/g, ' ').trim();
     
     if (clName.length > 0) {
       if (className.length === 0) {
