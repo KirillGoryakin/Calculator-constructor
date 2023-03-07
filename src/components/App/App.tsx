@@ -8,9 +8,11 @@ const App = () => {
     <main className='main-wrap'>
       <ModeSwitch />
 
-      <Elements />
+      <div className='main-wrap__inner'>
+        <Elements />
 
-      <AssemblyZone />
+        <AssemblyZone />
+      </div>
     </main>
   );
 };

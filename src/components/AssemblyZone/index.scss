@@ -1,0 +1,37 @@
+
+.assembly-zone {
+  text-align: center;
+  border: 2px dashed #C4C4C4;
+  border-radius: 6px;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 243px;
+    height: 480px;
+    padding: 0 50px;
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 12px;
+  }
+
+  &__text {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    color: #6B7280;
+
+    &_big {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 17px;
+      color: #5D5FEF;
+      margin-top: 4px;
+    }
+  }
+}
