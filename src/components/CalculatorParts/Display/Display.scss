@@ -1,0 +1,16 @@
+
+.display {
+  &__text {
+    width: 232px;
+    padding: 4px 8px;
+  
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 44px;
+    text-align: right;
+    color: #111827;
+    background: #F3F4F6;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+}

@@ -1,0 +1,10 @@
+.numbers {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 8px;
+  width: 232px;
+
+  &__button_0 {
+    grid-column: 1 / 3;
+  }
+}

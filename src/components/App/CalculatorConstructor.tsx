@@ -1,5 +1,5 @@
 import { Display } from 'components/CalculatorParts/Display';
-import { Eaqual } from 'components/CalculatorParts/Eaqual';
+import { Equal } from 'components/CalculatorParts/Equal';
 import { Numbers } from 'components/CalculatorParts/Numbers';
 import { Operators } from 'components/CalculatorParts/Operators';
 import { Constructor } from 'components/Constructor';
@@ -13,10 +13,10 @@ const CalculatorConstructor = () => {
       className='main-wrap__constructor'
       mode={mode}
     >
-      <Display />
+      <Display value='0' />
       <Operators />
       <Numbers />
-      <Eaqual />
+      <Equal />
     </Constructor>
   );
 };

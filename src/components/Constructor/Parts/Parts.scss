@@ -1,14 +1,13 @@
 
 .parts {
-  
   &__wrap {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    padding: 4px;
   }
 
   &__part {
+    padding: 4px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.06), 0px 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     cursor: move;
