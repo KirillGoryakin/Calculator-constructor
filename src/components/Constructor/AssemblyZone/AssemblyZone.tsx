@@ -1,10 +1,11 @@
 import { ReactComponent as ImgIcon } from 'assets/icons/add_image.svg';
 import { ReactNode, FC, useState } from 'react';
+import { Part } from 'types';
 import { generateClass } from 'utils/generateClass';
 import './AssemblyZone.scss';
 
 type Props = {
-  parts: ReactNode[];
+  parts: Part[];
   onDrop?: React.DragEventHandler<HTMLDivElement>;
 };
 
@@ -52,7 +53,14 @@ const AssemblyZone: FC<Props> = ({ parts, onDrop }) => {
         </div>
       ) : (
         <div className='assembly-zone__inner'>
-          {parts}
+          {parts.map(part => (
+            <div
+              key={part.id}
+              className='assembly-zone__part'
+            >
+              {part.node}
+            </div>
+          ))}
         </div>
       )}
     </div>

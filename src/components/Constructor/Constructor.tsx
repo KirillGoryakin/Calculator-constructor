@@ -3,7 +3,7 @@ import { ReactNode, FC, useState } from 'react';
 import { AssemblyZone } from './AssemblyZone';
 import { Parts } from './Parts';
 import { generateClass } from 'utils/generateClass';
-import { Mode } from 'types';
+import { Mode, Part } from 'types';
 
 type Props = {
   children: ReactNode[];
@@ -18,23 +18,41 @@ const Constructor: FC<Props> = (props) => {
     className = '',
   } = props;
 
-  const [addedParts, setAddedParts] = useState<ReactNode[]>([]);
-  const [holding, setHolding] = useState<ReactNode>(null);
+  const [parts, setParts] = useState(children.map((node, i) => ({
+    id: i,
+    node,
+    disabled: false,
+  })));
+  const [addedParts, setAddedParts] = useState<Part[]>([]);
+  const [holding, setHolding] = useState<Part | null>(null);
+
+  const handleDrop = () => {
+    if (holding) {
+      setAddedParts(prev => [...prev, holding]);
+      
+      setParts(parts.map(part => {
+        if (part.id === holding.id)
+          return { ...part, disabled: true };
+        return part;
+      }));
+
+      setHolding(null);
+    }
+  };
   
   return (
     <div className={generateClass('constructor', className)}>
       <div className='constructor__wrap'>
         {mode === 'constructor' && (
           <Parts
-            parts={children}
+            parts={parts}
             onDragStart={(e, part) => setHolding(part)}
-            onDragEnd={() => setHolding(null)}
           />
         )}
 
         <AssemblyZone
           parts={addedParts}
-          onDrop={() => setAddedParts(prev => [...prev, holding])}
+          onDrop={handleDrop}
         />
       </div>
     </div>

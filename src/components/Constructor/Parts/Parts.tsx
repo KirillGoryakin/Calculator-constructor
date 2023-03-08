@@ -1,11 +1,13 @@
 import { ReactNode, FC, Children } from 'react';
+import { Part } from 'types';
+import { generateClass } from 'utils/generateClass';
 import './Parts.scss';
 
 type Props = {
-  parts: ReactNode[];
-  onDrag?: (e: React.DragEvent<HTMLDivElement>, part: ReactNode) => void;
-  onDragStart?: (e: React.DragEvent<HTMLDivElement>, part: ReactNode) => void;
-  onDragEnd?: (e: React.DragEvent<HTMLDivElement>, part: ReactNode) => void;
+  parts: Part[];
+  onDrag?: (e: React.DragEvent<HTMLDivElement>, part: Part) => void;
+  onDragStart?: (e: React.DragEvent<HTMLDivElement>, part: Part) => void;
+  onDragEnd?: (e: React.DragEvent<HTMLDivElement>, part: Part) => void;
 };
 
 const Parts: FC<Props> = (props) => {
@@ -19,15 +21,18 @@ const Parts: FC<Props> = (props) => {
   return (
     <div className='parts'>
       <div className='parts__wrap'>
-        {Children.map(parts, part => (
+        {parts.map(part => (
           <div
-            className='parts__part'
-            draggable
+            className={generateClass(
+              'parts__part',
+              part.disabled ? 'parts__part_disabled' : ''
+            )}
+            draggable={!part.disabled}
             onDrag={e => onDrag && onDrag(e, part)}
             onDragStart={e => onDragStart && onDragStart(e, part)}
             onDragEnd={e => onDragEnd && onDragEnd(e, part)}
           >
-            {part}
+            {part.node}
           </div>
         ))}
       </div>
