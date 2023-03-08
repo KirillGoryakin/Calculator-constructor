@@ -1,3 +1,4 @@
+@import '/src/styles/variables.scss';
 
 .assembly-zone {
   &__inner {
@@ -5,7 +6,6 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    gap: 8px;
     width: 243px;
     height: 480px;
     padding: 0 50px;
@@ -41,8 +41,48 @@
       font-size: 14px;
       font-weight: 500;
       line-height: 17px;
-      color: #5D5FEF;
+      color: $iris;
       margin-top: 4px;
+    }
+  }
+
+  &__part {
+    position: relative;
+    padding: 8px 4px;
+
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease-in-out;
+
+    &::before, &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      
+      background-color: transparent;
+      transform: translate(-50%, -50%) rotate(45deg);
+      transition: background-color 0.2s ease-in-out;
+    }
+    
+    &_insert{
+      &_before {
+        border-top-color: $iris;
+        &::before, &::after { background-color: $iris; }
+        &::before { top: -1px; left: 0; }
+        &::after { top: -1px; left: 100%; }
+      }
+      &_after {
+        border-bottom-color: $iris;
+        &::before, &::after { background-color: $iris; }
+        &::before { top: 100%; left: 0; }
+        &::after { top: 100%; left: 100%; }
+      }
+    }
+    
+    :active {
+      opacity: 0.5;
     }
   }
 }

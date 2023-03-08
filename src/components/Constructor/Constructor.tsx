@@ -4,6 +4,14 @@ import { AssemblyZone } from './AssemblyZone';
 import { Parts } from './Parts';
 import { generateClass } from 'utils/generateClass';
 import { Mode, Part } from 'types';
+import { insert } from 'utils/insert';
+
+const getInsertPosition = (e: React.DragEvent<HTMLDivElement>) => {
+  const { height, top } =
+    (e.currentTarget as Element).getBoundingClientRect();
+  const y = e.clientY;
+  return y - top - height / 2 < 0 ? 'before' : 'after';
+};
 
 type Props = {
   children: ReactNode[];
@@ -18,7 +26,7 @@ const Constructor: FC<Props> = (props) => {
     className = '',
   } = props;
 
-  const [parts, setParts] = useState(children.map((node, i) => ({
+  const [parts, setParts] = useState<Part[]>(children.map((node, i) => ({
     id: i,
     node,
     disabled: false,
@@ -26,18 +34,82 @@ const Constructor: FC<Props> = (props) => {
   const [addedParts, setAddedParts] = useState<Part[]>([]);
   const [holding, setHolding] = useState<Part | null>(null);
 
-  const handleDrop = () => {
-    if (holding) {
-      setAddedParts(prev => [...prev, holding]);
+  const handleZoneDrop = () => {
+    if (!holding || addedParts.find(p => p.id === holding.id))
+      return setHolding(null);
 
-      setParts(parts.map(part => {
-        if (part.id === holding.id)
-          return { ...part, disabled: true };
-        return part;
+    setAddedParts(prev => [ ...prev, holding ]);
+
+    setParts(parts.map(p => {
+      if (p.id === holding.id)
+        return { ...p, disabled: true };
+      return p;
+    }));
+  };
+
+  const handlePartDragOver = (
+    e: React.DragEvent<HTMLDivElement>,
+    part: Part
+  ) => {
+    if (!holding) return;
+
+    const insertPos = getInsertPosition(e);
+
+    setAddedParts(addedParts.map(p => {
+      if (p.id === part.id)
+        return { ...p, insert: insertPos };
+      return p;
+    }));
+  };
+
+  const handlePartDragLeave = (
+    e: React.DragEvent<HTMLDivElement>,
+    part: Part
+  ) => {
+    if (e.target === e.currentTarget) {
+      setAddedParts(addedParts.map(p => {
+        if (p.id === part.id)
+          return { ...p, insert: null };
+        return p;
       }));
-
-      setHolding(null);
     }
+  };
+
+  const handlePartDrop = (e: React.DragEvent<HTMLDivElement>, part: Part) => {
+    if (!holding) return;
+
+    const insertPos = getInsertPosition(e);
+    const targetIndex = addedParts.findIndex(p => p.id === part.id);
+    const holdIndex = addedParts.findIndex(p => p.id === holding.id);
+
+    const getInsertIndex = () => {
+      if (targetIndex === holdIndex) return holdIndex;
+
+      if (insertPos === 'before') {
+        if (targetIndex > holdIndex)
+          return targetIndex - 1;
+        return targetIndex;
+      } else {
+        if (targetIndex < holdIndex)
+          return targetIndex + 1;
+        return targetIndex;
+      }
+    };
+
+    setAddedParts(
+      insert(
+        addedParts.filter(p => p.id !== holding.id),
+        getInsertIndex(),
+        holding,
+      )
+      .map(p => ({ ...p, insert: null }))
+    );
+
+    setParts(parts.map(p => {
+      if (p.id === holding.id)
+        return { ...p, disabled: true };
+      return p;
+    }));
   };
 
   const handleDoubleClick =(
@@ -46,10 +118,10 @@ const Constructor: FC<Props> = (props) => {
   ) => {
     setAddedParts(addedParts.filter(part => part.id !== id));
     
-    setParts(parts.map(part => {
-      if (part.id === id)
-        return { ...part, disabled: false };
-      return part;
+    setParts(parts.map(p => {
+      if (p.id === id)
+        return { ...p, disabled: false };
+      return p;
     }));
   };
   
@@ -65,7 +137,11 @@ const Constructor: FC<Props> = (props) => {
 
         <AssemblyZone
           parts={addedParts}
-          onDrop={handleDrop}
+          onPartDragStart={(e, part) => setHolding(part)}
+          onPartDragOver={handlePartDragOver}
+          onPartDragLeave={handlePartDragLeave}
+          onZoneDrop={handleZoneDrop}
+          onPartDrop={handlePartDrop}
           onDoubleClick={handleDoubleClick}
         />
       </div>
