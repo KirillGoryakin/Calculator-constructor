@@ -1,5 +1,5 @@
 import { ReactComponent as ImgIcon } from 'assets/icons/add_image.svg';
-import { ReactNode, FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { Part } from 'types';
 import { generateClass } from 'utils/generateClass';
 import './AssemblyZone.scss';
@@ -7,9 +7,10 @@ import './AssemblyZone.scss';
 type Props = {
   parts: Part[];
   onDrop?: React.DragEventHandler<HTMLDivElement>;
+  onDoubleClick?: (e: React.MouseEvent<HTMLDivElement>, part: Part) => void;
 };
 
-const AssemblyZone: FC<Props> = ({ parts, onDrop }) => {
+const AssemblyZone: FC<Props> = ({ parts, onDrop, onDoubleClick }) => {
   const [dragOver, setDragOver] = useState(false);
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -57,6 +58,7 @@ const AssemblyZone: FC<Props> = ({ parts, onDrop }) => {
             <div
               key={part.id}
               className='assembly-zone__part'
+              onDoubleClick={e => onDoubleClick && onDoubleClick(e, part)}
             >
               {part.node}
             </div>

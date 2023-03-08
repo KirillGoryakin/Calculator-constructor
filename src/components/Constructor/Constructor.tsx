@@ -29,7 +29,7 @@ const Constructor: FC<Props> = (props) => {
   const handleDrop = () => {
     if (holding) {
       setAddedParts(prev => [...prev, holding]);
-      
+
       setParts(parts.map(part => {
         if (part.id === holding.id)
           return { ...part, disabled: true };
@@ -38,6 +38,19 @@ const Constructor: FC<Props> = (props) => {
 
       setHolding(null);
     }
+  };
+
+  const handleDoubleClick =(
+    e: React.MouseEvent<HTMLDivElement>,
+    { id }: Part
+  ) => {
+    setAddedParts(addedParts.filter(part => part.id !== id));
+    
+    setParts(parts.map(part => {
+      if (part.id === id)
+        return { ...part, disabled: false };
+      return part;
+    }));
   };
   
   return (
@@ -53,6 +66,7 @@ const Constructor: FC<Props> = (props) => {
         <AssemblyZone
           parts={addedParts}
           onDrop={handleDrop}
+          onDoubleClick={handleDoubleClick}
         />
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { ReactNode, FC, Children } from 'react';
+import { FC } from 'react';
 import { Part } from 'types';
 import { generateClass } from 'utils/generateClass';
 import './Parts.scss';
@@ -23,6 +23,7 @@ const Parts: FC<Props> = (props) => {
       <div className='parts__wrap'>
         {parts.map(part => (
           <div
+            key={part.id}
             className={generateClass(
               'parts__part',
               part.disabled ? 'parts__part_disabled' : ''
