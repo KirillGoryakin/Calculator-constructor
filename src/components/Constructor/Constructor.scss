@@ -1,0 +1,10 @@
+.constructor {
+  &__wrap {
+    display: flex;
+    gap: 55px;
+  }
+}
+
+.main-wrap__constructor .constructor__wrap {
+  justify-content: flex-end;
+}

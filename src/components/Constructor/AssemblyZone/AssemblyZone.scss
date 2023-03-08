@@ -12,6 +12,11 @@
     width: 243px;
     height: 480px;
     padding: 0 50px;
+    transition: background 0.2s ease-in-out;
+
+    &_drag_over {
+      background: #F0F9FF;
+    }
   }
 
   &__icon {

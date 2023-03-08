@@ -1,18 +1,13 @@
-import './index.scss';
-import { AssemblyZone } from '../AssemblyZone';
-import { Elements } from '../Elements';
+import './App.scss';
 import { ModeSwitch } from './ModeSwitch';
+import { CalculatorConstructor } from './CalculatorConstructor';
 
 const App = () => {
   return (
     <main className='main-wrap'>
       <ModeSwitch />
 
-      <div className='main-wrap__inner'>
-        <Elements />
-
-        <AssemblyZone />
-      </div>
+      <CalculatorConstructor />
     </main>
   );
 };

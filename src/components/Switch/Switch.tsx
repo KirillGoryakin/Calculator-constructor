@@ -1,7 +1,7 @@
 import { FC, ReactNode, useState } from 'react';
 import { generateClass } from 'utils/generateClass';
 import SwitchContext from './SwitchContext';
-import './index.scss';
+import './Switch.scss';
 
 type Props = {
   children: ReactNode;
