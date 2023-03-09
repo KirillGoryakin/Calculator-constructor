@@ -21,14 +21,13 @@ type Props = {
 
 const Constructor: FC<Props> = (props) => {
   const {
-    children,
+    children: partNodes,
     mode,
     className = '',
   } = props;
-
-  const [parts, setParts] = useState<Part[]>(children.map((node, i) => ({
+  
+  const [parts, setParts] = useState<Part[]>(partNodes.map((_, i) => ({
     id: i,
-    node,
     disabled: false,
   })));
   const [addedParts, setAddedParts] = useState<Part[]>([]);
@@ -86,11 +85,13 @@ const Constructor: FC<Props> = (props) => {
       if (targetIndex === holdIndex) return holdIndex;
 
       if (insertPos === 'before') {
+        if (holdIndex === -1)
+          return targetIndex;
         if (targetIndex > holdIndex)
           return targetIndex - 1;
         return targetIndex;
       } else {
-        if (targetIndex < holdIndex)
+        if (targetIndex < holdIndex || holdIndex === -1)
           return targetIndex + 1;
         return targetIndex;
       }
@@ -131,12 +132,15 @@ const Constructor: FC<Props> = (props) => {
         {mode === 'constructor' && (
           <Parts
             parts={parts}
+            partNodes={partNodes}
             onDragStart={(e, part) => setHolding(part)}
           />
         )}
 
         <AssemblyZone
           parts={addedParts}
+          partNodes={partNodes}
+          mode={mode}
           onPartDragStart={(e, part) => setHolding(part)}
           onPartDragOver={handlePartDragOver}
           onPartDragLeave={handlePartDragLeave}

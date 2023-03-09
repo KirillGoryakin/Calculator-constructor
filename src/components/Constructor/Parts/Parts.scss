@@ -12,6 +12,8 @@
     border-radius: 4px;
     cursor: move;
 
+    & > * { pointer-events: none; }
+
     &:active { opacity: 0.5; }
 
     &_disabled {

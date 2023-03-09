@@ -11,7 +11,10 @@ const NumberButton: FC<Props> = ({ n, onClick }) => {
   return (
     <Button
       onClick={e => onClick && onClick(e, n)}
-      className={generateClass('numbers__button', `numbers__button_${n}`)}
+      className={generateClass(
+        'numbers-pad__button',
+        `numbers-pad__button_${n}`
+      )}
     >
       {n+''}
     </Button>

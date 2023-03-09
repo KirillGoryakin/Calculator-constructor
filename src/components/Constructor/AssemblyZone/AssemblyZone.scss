@@ -52,10 +52,6 @@
     position: relative;
     padding: 8px 4px;
 
-    border-top: 1px solid transparent;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.2s ease-in-out;
-
     &-divider {
       position: absolute;
       width: 100%;
@@ -90,9 +86,12 @@
       &_before #{ $self_part }-divider_before { opacity: 1; }
       &_after #{ $self_part }-divider_after { opacity: 1; }
     }
-    
-    :active {
-      opacity: 0.5;
-    }
+  }
+
+  &_mode_constructor &__part > * { pointer-events: none; }
+  &_mode_constructor &__part {
+    cursor: move;
+
+    &:active { opacity: 0.5; }
   }
 }

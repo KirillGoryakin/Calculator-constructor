@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Button } from 'components/Button';
-import './Numbers.scss';
+import './NumbersPad.scss';
 import { NumberButton } from './NumberButton';
 import { generateClass } from 'utils/generateClass';
 
@@ -9,9 +9,9 @@ type Props = {
   onCommaClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-const Numbers: FC<Props> = ({ onNumberClick, onCommaClick }) => {
+const NumbersPad: FC<Props> = ({ onNumberClick, onCommaClick }) => {
   return (
-    <div className='numbers'>
+    <div className='numbers-pad'>
       <NumberButton onClick={onNumberClick} n={7} />
       <NumberButton onClick={onNumberClick} n={8} />
       <NumberButton onClick={onNumberClick} n={9} />
@@ -33,4 +33,4 @@ const Numbers: FC<Props> = ({ onNumberClick, onCommaClick }) => {
   );
 };
 
-export { Numbers };
+export { NumbersPad };

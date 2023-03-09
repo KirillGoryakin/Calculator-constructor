@@ -1,11 +1,13 @@
 import { ReactComponent as ImgIcon } from 'assets/icons/add_image.svg';
 import { FC, useState } from 'react';
-import { Part } from 'types';
+import { Mode, Part } from 'types';
 import { generateClass } from 'utils/generateClass';
 import './AssemblyZone.scss';
 
 type Props = {
   parts: Part[];
+  partNodes: React.ReactNode[];
+  mode: Mode,
   onPartDragStart?: (e: React.DragEvent<HTMLDivElement>, part: Part) => void;
   onPartDragOver?: (e: React.DragEvent<HTMLDivElement>, part: Part) => void;
   onPartDragLeave?: (e: React.DragEvent<HTMLDivElement>, part: Part) => void;
@@ -17,6 +19,8 @@ type Props = {
 const AssemblyZone: FC<Props> = (props) => {
   const {
     parts,
+    partNodes,
+    mode,
     onPartDragStart,
     onPartDragOver,
     onPartDragLeave,
@@ -24,6 +28,8 @@ const AssemblyZone: FC<Props> = (props) => {
     onDoubleClick,
     onPartDrop,
   } = props;
+  
+  const isConstructor = mode === 'constructor';
 
   const [dragOver, setDragOver] = useState(false);
 
@@ -51,10 +57,10 @@ const AssemblyZone: FC<Props> = (props) => {
 
   return (
     <div
-      className='assembly-zone'
-      onDrop={handleZoneDrop}
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
+      className={`assembly-zone assembly-zone_mode_${mode}`}
+      onDrop={e => isConstructor && handleZoneDrop(e)}
+      onDragOver={e => isConstructor && handleDragOver(e)}
+      onDragLeave={e => isConstructor && handleDragLeave(e)}
     >
       {parts.length === 0 ? (
         <div 
@@ -81,18 +87,30 @@ const AssemblyZone: FC<Props> = (props) => {
                 'assembly-zone__part',
                 part.insert ? `assembly-zone__part_insert_${part.insert}` : '',
               )}
-              draggable
-              onDragStart={e => onPartDragStart && onPartDragStart(e, part)}
-              onDragOver={e => onPartDragOver && onPartDragOver(e, part)}
-              onDragLeave={e => onPartDragLeave && onPartDragLeave(e, part)}
-              onDoubleClick={e => onDoubleClick && onDoubleClick(e, part)}
-              onDrop={e => handlePartDrop(e, part)}
+              draggable={isConstructor}
+              onDragStart={e => 
+                isConstructor && onPartDragStart
+                && onPartDragStart(e, part)
+              }
+              onDragOver={e => 
+                isConstructor && onPartDragOver
+                && onPartDragOver(e, part)
+              }
+              onDragLeave={e => 
+                isConstructor && onPartDragLeave &&
+                onPartDragLeave(e, part)
+              }
+              onDoubleClick={e => 
+                isConstructor && onDoubleClick &&
+                onDoubleClick(e, part)
+              }
+              onDrop={e => isConstructor && handlePartDrop(e, part)}
             >
               <div className='
                 assembly-zone__part-divider
                 assembly-zone__part-divider_before'
               />
-              {part.node}
+              {partNodes[part.id]}
               <div className='
                 assembly-zone__part-divider
                 assembly-zone__part-divider_after'

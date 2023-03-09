@@ -12,5 +12,10 @@
     background: #F3F4F6;
     border-radius: 6px;
     overflow: hidden;
+
+    &_size {
+      &_xl { font-size: 36px; }
+      &_sm { font-size: 24px; }
+    }
   }
 }

@@ -5,14 +5,20 @@ import { ReactComponent as SelectorIcon } from 'assets/icons/selector.svg';
 import { useAppDispatch } from 'hooks/reduxHooks';
 import { setMode } from 'store/slices/modeSlice';
 import { Mode } from 'types';
+import { reset } from 'store/slices/calculatorSlice';
 
 const ModeSwitch = () => {
   const dispatch = useAppDispatch();
+
+  const handleSwitch = (value: string) => {
+    dispatch(setMode(value as Mode));
+    dispatch(reset());
+  };
   
   return (
     <Switch
       defaultValue='constructor'
-      onSwitch={value => dispatch(setMode(value as Mode))}
+      onSwitch={handleSwitch}
       className='main-wrap__switch'
     >
       <SwitchItem

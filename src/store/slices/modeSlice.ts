@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Mode } from 'types';
 
-type ModeState = {
+export type ModeState = {
   mode: Mode;
 };
 

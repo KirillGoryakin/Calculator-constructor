@@ -5,6 +5,7 @@ import './Parts.scss';
 
 type Props = {
   parts: Part[];
+  partNodes: React.ReactNode[];
   onDrag?: (e: React.DragEvent<HTMLDivElement>, part: Part) => void;
   onDragStart?: (e: React.DragEvent<HTMLDivElement>, part: Part) => void;
   onDragEnd?: (e: React.DragEvent<HTMLDivElement>, part: Part) => void;
@@ -13,6 +14,7 @@ type Props = {
 const Parts: FC<Props> = (props) => {
   const {
     parts,
+    partNodes,
     onDrag,
     onDragStart,
     onDragEnd,
@@ -33,7 +35,7 @@ const Parts: FC<Props> = (props) => {
             onDragStart={e => onDragStart && onDragStart(e, part)}
             onDragEnd={e => onDragEnd && onDragEnd(e, part)}
           >
-            {part.node}
+            {partNodes[part.id]}
           </div>
         ))}
       </div>
