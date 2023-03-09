@@ -88,7 +88,15 @@ const AssemblyZone: FC<Props> = (props) => {
               onDoubleClick={e => onDoubleClick && onDoubleClick(e, part)}
               onDrop={e => handlePartDrop(e, part)}
             >
+              <div className='
+                assembly-zone__part-divider
+                assembly-zone__part-divider_before'
+              />
               {part.node}
+              <div className='
+                assembly-zone__part-divider
+                assembly-zone__part-divider_after'
+              />
             </div>
           ))}
         </div>
