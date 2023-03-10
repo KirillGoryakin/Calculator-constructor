@@ -3,12 +3,9 @@ import {
   equalInput,
   reset,
   setDisplay,
-  setFirstOperand,
-  setSecondOperand,
 } from 'store/slices/calculatorSlice';
 import { takeEvery, select, put } from 'redux-saga/effects';
 import { RootState } from 'store';
-import { Operand } from 'types';
 import { getStringFromOperand } from 'utils/getStringFromOperand';
 import { getOperandFromString } from 'utils/getOperandFromString';
 
