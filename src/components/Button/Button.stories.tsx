@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Button } from '../Button';
+import { Button } from './Button';
 
 export default {
   title: 'Button',
@@ -76,7 +76,9 @@ export const Operators: ComponentStory<typeof Button> = args => {
 export const Equal: ComponentStory<typeof Button> = args => {
   return <>
     <Button {...args} className='equal_button'>=</Button>
-    <style>{`.equal_button { width: 232px; }`}</style>
+    <style>{`
+      .equal_button { width: 232px; }
+    `}</style>
   </>;
 };
 Equal.args = {
