@@ -7,7 +7,6 @@ type Props = {
   size?: 'md' | 'lg';
   variant?: 'outline' | 'filled';
   className?: string;
-  style?: React.CSSProperties;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
@@ -17,7 +16,6 @@ const Button: FC<Props> = (props) => {
     size = 'md',
     variant = 'outline',
     className = '',
-    style,
     onClick,
   } = props;
   
@@ -30,7 +28,6 @@ const Button: FC<Props> = (props) => {
         className,
         )}
       onClick={onClick}
-      style={style}
     >
       {children}
     </button>
