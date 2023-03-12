@@ -1,7 +1,7 @@
 import { Operand } from 'types';
 import { getStringFromOperand } from 'utils/getStringFromOperand';
 
-const gsfo = getStringFromOperand;
+const _ = getStringFromOperand;
 const operand: Operand = {
   beforeComma: 0,
   hasComma: false,
@@ -10,19 +10,19 @@ const operand: Operand = {
 
 describe('getStringFromOperand', () => {
   it('should return string with integer', () => {
-    expect(gsfo(operand)).toEqual('0');
-    expect(gsfo({ ...operand, beforeComma: 123})).toEqual('123');
-    expect(gsfo({ ...operand, beforeComma: 8887466474 })).toEqual('8887466474');
+    expect(_(operand)).toEqual('0');
+    expect(_({ ...operand, beforeComma: 123})).toEqual('123');
+    expect(_({ ...operand, beforeComma: 8887466474 })).toEqual('8887466474');
   });
 
   it('should return string with float', () => {
     const opearndWithComma = { ...operand, hasComma: true };
-    expect(gsfo({ ...opearndWithComma, beforeComma: 123 })).toEqual('123,0');
-    expect(gsfo({ ...opearndWithComma, beforeComma: 888746647 }))
+    expect(_({ ...opearndWithComma, beforeComma: 123 })).toEqual('123,0');
+    expect(_({ ...opearndWithComma, beforeComma: 888746647 }))
       .toEqual('888746647,0');
-    expect(gsfo({ ...opearndWithComma, beforeComma: 123, afterComma: 333 }))
+    expect(_({ ...opearndWithComma, beforeComma: 123, afterComma: 333 }))
       .toEqual('123,333');
-    expect(gsfo({
+    expect(_({
       ...opearndWithComma,
       beforeComma: 888746647,
       afterComma: 968578,

@@ -34,9 +34,13 @@ const mockOperand: Operand = {
 };
 
 describe('calculatorSlice', () => {
+  let state: CalculatorState = { ...mockState };
+
+  beforeEach(() => {
+    state = { ...mockState };
+  });
+  
   it('should change display value with setDisplay action', () => {
-    let state: CalculatorState = { ...mockState };
-    
     state = reducer(state, setDisplay('123'));
     expect(state).toEqual({ ...mockState, display: '123' });
 
@@ -48,8 +52,6 @@ describe('calculatorSlice', () => {
   });
 
   it('should set first operand with setFirstOperand action', () => {
-    let state: CalculatorState = { ...mockState };
-
     state = reducer(state, setFirstOperand({
       ...mockOperand,
       beforeComma: 123,
@@ -84,8 +86,6 @@ describe('calculatorSlice', () => {
   });
 
   it('should set second operand with setSecondOperand action', () => {
-    let state: CalculatorState = { ...mockState };
-
     state = reducer(state, setSecondOperand({
       ...mockOperand,
       beforeComma: 123,
@@ -120,8 +120,6 @@ describe('calculatorSlice', () => {
   });
 
   it('should set operator with setOperator action', () => {
-    let state: CalculatorState = { ...mockState };
-
     state = reducer(state, setOperator('+'));
     expect(state).toEqual({ ...mockState, operator: '+' });
 
@@ -139,7 +137,7 @@ describe('calculatorSlice', () => {
   });
 
   it('should reset state with reset action', () => {
-    let state: CalculatorState = {
+    state = {
       display: 'fw rg3rg gh3h',
       firstOperand: {
         beforeComma: 5133,
@@ -159,8 +157,6 @@ describe('calculatorSlice', () => {
   });
 
   it('should do nothing with numberInput, commaInput and equalInput actions', () => {
-    let state: CalculatorState = { ...mockState };
-
     state = reducer(state, numberInput(123));
     expect(state).toEqual(mockState);
 
@@ -183,7 +179,6 @@ describe('calculatorSlice', () => {
         afterComma: 0,
       },
     });
-    let state: CalculatorState = getState(mockState, 0);
 
     state = reducer(state, operatorInput('+'));
     expect(state).toEqual(mockState);

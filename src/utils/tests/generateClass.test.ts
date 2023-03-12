@@ -1,46 +1,47 @@
 import { generateClass } from 'utils/generateClass';
 
+const _ = generateClass;
+
 describe('generateClass', () => {
   it('should return empty string', () => {
-    expect(generateClass('')).toEqual('');
-    expect(generateClass()).toEqual('');
-    expect(generateClass('', '', '')).toEqual('');
+    expect(_('')).toEqual('');
+    expect(_()).toEqual('');
+    expect(_('', '', '')).toEqual('');
 
-    expect(generateClass(' ')).toEqual('');
-    expect(generateClass('      ')).toEqual('');
-    expect(generateClass('      ', '      ', '      ')).toEqual('');
+    expect(_(' ')).toEqual('');
+    expect(_('      ')).toEqual('');
+    expect(_('      ', '      ', '      ')).toEqual('');
   });
 
   it('should return string only with 1 class name', () => {
-    expect(generateClass('someClass')).toEqual('someClass');
-    expect(generateClass('someClass', '', '  ')).toEqual('someClass');
-    expect(generateClass('', '  ', 'someClass')).toEqual('someClass');
-    expect(generateClass('  ', '', 'someClass', ' ', '')).toEqual('someClass');
+    expect(_('someClass')).toEqual('someClass');
+    expect(_('someClass', '', '  ')).toEqual('someClass');
+    expect(_('', '  ', 'someClass')).toEqual('someClass');
+    expect(_('  ', '', 'someClass', ' ', '')).toEqual('someClass');
   });
 
   it('should return string with 2 class names', () => {
-    expect(generateClass('someClass', 'another')).toEqual('someClass another');
-    expect(generateClass(' some   Class ', '', '  ')).toEqual('some Class');
-    expect(generateClass('someClass', '', 'another'))
-      .toEqual('someClass another');
-    expect(generateClass('  ', 'another', '', ' ', 'someClass'))
+    expect(_('someClass', 'another')).toEqual('someClass another');
+    expect(_(' some   Class ', '', '  ')).toEqual('some Class');
+    expect(_('someClass', '', 'another')).toEqual('someClass another');
+    expect(_('  ', 'another', '', ' ', 'someClass'))
       .toEqual('another someClass');
-    expect(generateClass('  ', '', 'someClass', 'another', '  '))
+    expect(_('  ', '', 'someClass', 'another', '  '))
       .toEqual('someClass another');
   });
 
   it('should return string with a few class names', () => {
-    expect(generateClass('some', 'class  ', 'name')).toEqual('some class name');
-    expect(generateClass('  ', '', '  some    Class     ', 'another', '  '))
+    expect(_('some', 'class  ', 'name')).toEqual('some class name');
+    expect(_('  ', '', '  some    Class     ', 'another', '  '))
       .toEqual('some Class another');
-    expect(generateClass('', '  ', '  so  meClas  s  ')).toEqual('so meClas s');
-    expect(generateClass('  so  me  ', 'cla      ss  ', 'na  me'))
+    expect(_('', '  ', '  so  meClas  s  ')).toEqual('so meClas s');
+    expect(_('  so  me  ', 'cla      ss  ', 'na  me'))
       .toEqual('so me cla ss na me');
-    expect(generateClass('', 'an', '', ' other', ' ', '', 'class ', '', 'name'))
+    expect(_('', 'an', '', ' other', ' ', '', 'class ', '', 'name'))
       .toEqual('an other class name');
-    expect(generateClass('', 'a', '  b  ', 'c     ', ' ', '  d  '))
+    expect(_('', 'a', '  b  ', 'c     ', ' ', '  d  '))
       .toEqual('a b c d');
-    expect(generateClass('123  ', '  3rd ', '  some class  ', ' a14', 'rr  '))
+    expect(_('123  ', '  3rd ', '  some class  ', ' a14', 'rr  '))
       .toEqual('123 3rd some class a14 rr');
   });
 });
