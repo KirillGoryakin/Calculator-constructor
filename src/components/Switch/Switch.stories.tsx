@@ -5,7 +5,7 @@ import { ReactComponent as GoldIcon } from 'assets/icons/gold.svg';
 import { ReactComponent as SpaceIcon } from 'assets/icons/space.svg';
 
 export default {
-  title: 'Switch',
+  title: 'Components/Switch',
   component: Switch,
   argTypes: {
     children: {
