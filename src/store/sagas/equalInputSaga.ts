@@ -9,7 +9,7 @@ import { RootState } from 'store';
 import { getStringFromOperand } from 'utils/getStringFromOperand';
 import { getOperandFromString } from 'utils/getOperandFromString';
 
-function* equalInputWorker() {
+export function* equalInputWorker() {
   const {
     firstOperand,
     operator,

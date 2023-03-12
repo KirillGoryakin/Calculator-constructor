@@ -8,7 +8,7 @@ import {
 import { takeEvery, select, put } from 'redux-saga/effects';
 import { RootState } from 'store';
 
-function* commaInputWorker() {
+export function* commaInputWorker() {
   const {
     firstOperand,
     operator,

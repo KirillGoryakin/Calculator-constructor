@@ -11,7 +11,7 @@ import { RootState } from 'store';
 import { Operand } from 'types';
 import { getStringFromOperand } from 'utils/getStringFromOperand';
 
-function* numberInputWorker(action: PayloadAction<number>) {
+export function* numberInputWorker(action: PayloadAction<number>) {
   const {
     firstOperand,
     operator,
